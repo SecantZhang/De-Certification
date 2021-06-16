@@ -3,3 +3,4 @@ __pycache__
 dataset_cache
 exploration
 logs
+.vscode

@@ -36,9 +36,12 @@ class Smooth(object):
         """
         # self.base_classifier.eval()
         # draw samples of f(x+ epsilon)
-        counts_selection = self._sample_noise(x, n0, batch_size)
-        # use these samples to take a guess at the top class
-        cAHat = counts_selection.argmax().item()
+        # counts_selection = self._sample_noise(x, n0, batch_size)
+        # # use these samples to take a guess at the top class
+        # cAHat = counts_selection.argmax().item()
+        if len(x.shape) != 4: 
+            x = torch.unsqueeze(torch.tensor(x), 0)
+        cAHat = self.base_classifier.predict(x).argmax(1)
         # draw more samples of f(x + epsilon)
         counts_estimation = self._sample_noise(x, n, batch_size)
         # use these samples to estimate a lower bound on pA
